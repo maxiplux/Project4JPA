@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:tx="http://www.springframework.org/schema/tx"
+   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+   xmlns:security="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="
+      http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+ 	  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+      http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+      http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+      
+      
+      <security:http use-expressions="true">
+      	
+      	<security:intercept-url pattern="/employees/add" access="isFullyAuthenticated()"/>
+      	
+      	<security:form-login/>
+      	<security:logout/>
+      </security:http>
+      
+      <security:authentication-manager>
+      	<security:authentication-provider>
+      		<!-- <security:password-encoder ref="passwordEncoder"/> -->
+      		<security:user-service>
+      			<security:user name="admin" authorities="ROLE_ADMIN" password="admin"/>
+      			<security:user name="user" authorities="ROLE_USER" password="user"/>
+      		</security:user-service>
+      	</security:authentication-provider>
+      </security:authentication-manager>
+      
+      <!-- <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> -->
+
+</beans>
