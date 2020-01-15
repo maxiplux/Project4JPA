@@ -11,16 +11,18 @@ public class Interceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
 
-        String displayMsg;
+        String displayMsg="No User Authenticated yet!!!";
 
         if(request.getUserPrincipal()!=null) {
-            if(request.isUserInRole("ROLE_ADMIN")) {
+
+            displayMsg="Basic Authorization";
+
+            if(request.isUserInRole("ROLE_ADMIN"))
+
+            {
                 displayMsg="Full Authorization";
-            }else {
-                displayMsg="Basic Authorization";
             }
-        }else {
-            displayMsg="No User Authenticated yet!!!";
+
         }
 
         modelAndView.getModelMap().addAttribute("msg",displayMsg);
